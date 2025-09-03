@@ -26,30 +26,16 @@ const webProjects = [
   },
   {
     title: 'E-Commerce Platform',
-    description: 'Full-featured online shopping platform with payment integration.',
+    description: 'Full-featured online shopping platform with payment integration and admin dashboard.',
     liveUrl: '#',
-    technologies: ['React', 'Node.js'],
+    technologies: ['React', 'Node.js', 'MongoDB'],
     color: 'from-orange-500 to-red-500'
-  },
-  {
-    title: 'Task Management',
-    description: 'Collaborative project management tool with real-time updates.',
-    liveUrl: '#',
-    technologies: ['Vue.js', '.NET Core'],
-    color: 'from-indigo-500 to-purple-500'
-  },
-  {
-    title: 'Analytics Dashboard',
-    description: 'Real-time data visualization and business intelligence platform.',
-    liveUrl: '#',
-    technologies: ['React', 'D3.js'],
-    color: 'from-pink-500 to-rose-500'
   }
 ];
 
 export function WebProjects() {
   return (
-    <section className="py-20 bg-gray-900/50 backdrop-blur-sm">
+    <section className="py-16 bg-gray-900/50 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

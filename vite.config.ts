@@ -5,6 +5,9 @@
 
   export default defineConfig({
     base: '/portfolio/',
+    build: {
+      outDir: 'dist'
+    },
     plugins: [react()],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
@@ -50,10 +53,10 @@
         '@': path.resolve(__dirname, './src'),
       },
     },
-    build: {
-      target: 'esnext',
-      outDir: 'build',
-    },
+    // build: {
+    //   target: 'esnext',
+    //   outDir: 'build',
+    // },
     server: {
       port: 3000,
       open: true,
