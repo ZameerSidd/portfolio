@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight, ExternalLink, Github } from 'lucide-react';
 import { Button } from './ui/button';
@@ -39,6 +39,18 @@ const projects = [
 
 export function Projects() {
   const [currentProject, setCurrentProject] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Auto-rotation effect
+  useEffect(() => {
+    if (isPaused) return;
+    
+    const interval = setInterval(() => {
+      setCurrentProject((prev) => (prev + 1) % projects.length);
+    }, 5000); // Change project every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [isPaused]);
 
   const nextProject = () => {
     setCurrentProject((prev) => (prev + 1) % projects.length);
@@ -49,7 +61,7 @@ export function Projects() {
   };
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-16 bg-background">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -66,15 +78,34 @@ export function Projects() {
           </p>
         </motion.div>
 
-        <div className="relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 shadow-2xl">
+        <div 
+          className="relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 shadow-2xl"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {/* Page Counter */}
+          <div className="absolute top-4 right-4 z-20">
+            <div className="bg-gray-800/80 backdrop-blur-sm border border-gray-600 rounded-lg px-3 py-1">
+              <span className="text-sm text-gray-300">
+                {currentProject + 1} / {projects.length}
+              </span>
+            </div>
+          </div>
+
           <AnimatePresence mode="wait">
             <motion.div
               key={currentProject}
-              initial={{ opacity: 0, x: 300 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -300 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              initial={{ opacity: 0, rotateY: 90, scale: 0.8 }}
+              animate={{ opacity: 1, rotateY: 0, scale: 1 }}
+              exit={{ opacity: 0, rotateY: -90, scale: 0.8 }}
+              transition={{ 
+                duration: 0.8, 
+                ease: "easeInOut",
+                type: "spring",
+                stiffness: 100
+              }}
               className="grid md:grid-cols-2 gap-12 items-center"
+              style={{ perspective: '1000px' }}
             >
               {/* Project Image */}
               <motion.div
@@ -179,17 +210,32 @@ export function Projects() {
               <ChevronLeft className="h-6 w-6 group-hover:scale-110 transition-transform" />
             </Button>
 
-            <div className="flex space-x-2">
+            <div className="flex space-x-3">
               {projects.map((_, index) => (
-                <button
+                <motion.button
                   key={index}
                   onClick={() => setCurrentProject(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                  className={`relative transition-all duration-300 ${
                     index === currentProject
-                      ? 'bg-purple-500 w-8'
-                      : 'bg-gray-600 hover:bg-gray-500'
+                      ? 'w-12 h-3 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full'
+                      : 'w-3 h-3 bg-gray-600 hover:bg-gray-500 rounded-full'
                   }`}
-                />
+                >
+                  {index === currentProject && (
+                    <motion.div
+                      layoutId="activeIndicator"
+                      className="absolute inset-0 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full blur-sm opacity-60"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                  {index === currentProject && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-1 h-1 bg-white rounded-full animate-pulse" />
+                    </div>
+                  )}
+                </motion.button>
               ))}
             </div>
 
