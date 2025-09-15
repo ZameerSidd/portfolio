@@ -53,6 +53,7 @@ const FloatingIcon = ({ icon: Icon, className, delay }: { icon: any, className: 
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8, delay }}
     viewport={{ once: true }}
     animate={{ 
       y: [0, -10, 0],
@@ -62,8 +63,7 @@ const FloatingIcon = ({ icon: Icon, className, delay }: { icon: any, className: 
       duration: 4, 
       repeat: Infinity, 
       repeatType: "reverse",
-      ease: "easeInOut",
-      delay
+      ease: "easeInOut"
     }}
     className={className}
   >

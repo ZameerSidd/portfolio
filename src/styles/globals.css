@@ -565,3 +565,68 @@ html {
     transform: translateY(100%);
   }
 }
+
+/* Canvas Loader Styles */
+.canvas-loader {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ff7f00;
+  box-shadow: 15px 0 #ff7f00, -15px 0 #ff7f00;
+  position: relative;
+  animation: flash 0.8s ease-out infinite alternate;
+}
+
+@keyframes flash {
+  0% {
+    background-color: #ff7f00;
+    box-shadow: 15px 0 #ff7f00, -15px 0 #ff7f00;
+  }
+  50% {
+    background-color: rgba(255, 127, 0, 0.3);
+    box-shadow: 15px 0 rgba(255, 127, 0, 0.3), -15px 0 rgba(255, 127, 0, 0.3);
+  }
+  100% {
+    background-color: #ff7f00;
+    box-shadow: 15px 0 #ff7f00, -15px 0 #ff7f00;
+  }
+}
+
+/* Contact Page Space Animations */
+@keyframes twinkle {
+  0%, 100% { 
+    opacity: 0.2; 
+    transform: scale(1); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.2); 
+  }
+}
+
+@keyframes comet {
+  0% { 
+    transform: translateX(-100px) translateY(0); 
+    opacity: 0; 
+  }
+  10% { 
+    opacity: 1; 
+  }
+  90% { 
+    opacity: 1; 
+  }
+  100% { 
+    transform: translateX(100vw) translateY(-50px); 
+    opacity: 0; 
+  }
+}
+
+/* Hero Page Animations */
+@keyframes gradient-shift {
+  0%, 100% { 
+    background-position: 0% 50%; 
+  }
+  50% { 
+    background-position: 100% 50%; 
+  }
+}
