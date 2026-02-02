@@ -1,0 +1,24 @@
+name: Deploy Three-Loveable Branch
+on:
+  push:
+    branches:
+      - three-loveable # This workflow runs only for this specific branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # Uses a fresh virtual environment
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Clones your repo so the action can access it
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Specify the Node.js version your project needs
+
+      - name: Install dependencies
+        run: npm ci # Use npm ci for clean installs in automated environments
+
+      - name: Run the deploy script
+        # This executes the "deploy" command defined in your package.json
+        run: npm run deploy
