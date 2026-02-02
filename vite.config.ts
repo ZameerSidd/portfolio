@@ -10,14 +10,10 @@ export default defineConfig(({ mode }) => ({
     outDir: 'dist'
   },
   server: {
-    host: "::",
     port: 8080,
-    open: true,
-    hmr: {
-      overlay: false,
-    },
+    open: true
   },
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
