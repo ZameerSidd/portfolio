@@ -89,8 +89,8 @@ const AboutSection = () => {
             className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
           >
             {[
-              { number: "3+", label: "Years Experience" },
-              { number: "6+", label: "Enterprise Apps" },
+              { number: "5+", label: "Years Experience" },
+              { number: "3+", label: "Enterprise Apps" },
               { number: "7+", label: "Websites Built" },
               { number: "1000+", label: "Daily Routes Managed" },
             ].map((stat, index) => (

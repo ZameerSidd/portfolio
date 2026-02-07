@@ -19,7 +19,7 @@ const enterpriseProjects = [
     title: "ATM_CRM",
     subtitle: "ATM Cash Refill Management System",
     client: "Brinks Pvt Ltd (via Byval Technologies)",
-    stack: ["Flutter", ".NET Core", "SQL Server"],
+    stack: ["Flutter", ".NET Core", "Rust", "SQL Server"],
     scale: "200-300 routes daily",
     description: "A route-based field operations app used by cash officers to refill ATMs daily.",
     features: [
@@ -31,6 +31,7 @@ const enterpriseProjects = [
     contributions: [
       "Built Flutter app with dynamic screen rendering from server-driven config",
       "Designed high-performance media sync APIs in .NET Core",
+      "Built video syncing and HLS streaming API in Rust",
       "Handled large video + image uploads with metadata",
       "Optimized syncing for poor network field conditions"
     ]
