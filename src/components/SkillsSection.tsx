@@ -45,7 +45,7 @@ const skillCategories = [
   {
     title: "Systems",
     icon: Zap,
-    skills: ["Media Sync", "Video Streaming", "QR Systems"],
+    skills: ["Video Sync (Rust)", "HLS Streaming (Rust)", "Media Processing"],
     color: "from-yellow-500 to-orange-500",
   },
   {

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Menu, X, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import handleDownload from "./constant";
 
 const navLinks = [
   { name: "About", href: "#about" },
@@ -16,11 +17,30 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    let rafId: number | null = null;
+    let lastIsScrolled = window.scrollY > 50;
+
+    // Set initial value (prevents an extra render after first scroll)
+    setIsScrolled(lastIsScrolled);
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      if (rafId !== null) return;
+
+      rafId = window.requestAnimationFrame(() => {
+        rafId = null;
+        const nextIsScrolled = window.scrollY > 50;
+        if (nextIsScrolled !== lastIsScrolled) {
+          lastIsScrolled = nextIsScrolled;
+          setIsScrolled(nextIsScrolled);
+        }
+      });
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      if (rafId !== null) window.cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const scrollToSection = (href: string) => {
@@ -65,12 +85,12 @@ const Navbar = () => {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
               </button>
             ))}
-            <Button asChild size="sm" className="gap-2">
-              <a href="/Zameer_Siddique_Resume.pdf" download>
+          <Button asChild size="sm" className="w-full gap-2">
+              <a  onClick={handleDownload}>
                 <Download className="w-4 h-4" />
                 Resume
               </a>
-            </Button>
+          </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -102,7 +122,7 @@ const Navbar = () => {
               </button>
             ))}
             <Button asChild size="sm" className="w-full gap-2">
-              <a href="/Zameer_Siddique_Resume.pdf" download>
+              <a  onClick={handleDownload}>
                 <Download className="w-4 h-4" />
                 Download Resume
               </a>
